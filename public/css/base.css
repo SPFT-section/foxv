@@ -1,0 +1,92 @@
+/* ===== WTR-Lab design system ===== */
+:root {
+  --wtr: #fd7e14;
+  --wtr-foreground: #fff;
+  --background: #f2f3f4;
+  --foreground: #1b1d23;
+  --navbar: #212529;
+  --card: #ffffff;
+  --card-foreground: #212529;
+  --primary: #4288c9;
+  --primary-foreground: #eef2ff;
+  --ring: #4288c9;
+  --secondary: #dce3e9;
+  --secondary-foreground: #18181b;
+  --muted: #dee6ed;
+  --muted-foreground: #7d8283;
+  --accent: #dce3e9;
+  --accent-foreground: #1b2328;
+  --destructive: #dc3545;
+  --destructive-foreground: #fff;
+  --border: #d4dadb;
+  --input: #a7adb4;
+  --gold: #ffc107;
+  --silver: #a8adb8;
+  --bronze: #cd7f32;
+  --radius: .4rem;
+  --ring-soft: rgba(27, 29, 35, .2);
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, .08);
+  --font-sans: "Nunito Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, "Courier New", monospace;
+  --font-serif: Georgia, "Times New Roman", serif;
+}
+html.dark {
+  --background: #1b1d23;
+  --foreground: #a9a9a9;
+  --navbar: #212529;
+  --card: #1f2129;
+  --card-foreground: #ccc;
+  --primary: #5795d9;
+  --primary-foreground: #eef2ff;
+  --ring: #5795d9;
+  --secondary: #444e5b;
+  --secondary-foreground: #eee;
+  --muted: #111;
+  --muted-foreground: #a9b1b7;
+  --accent: #47566c;
+  --accent-foreground: #fafafa;
+  --destructive: #dc3545;
+  --destructive-foreground: #fff;
+  --border: rgba(255, 255, 255, .1);
+  --input: rgba(255, 255, 255, .15);
+  --gold: #ffc107;
+  --silver: #9aa0a6;
+  --bronze: #cd7f32;
+  --ring-soft: rgba(255, 255, 255, .2);
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, .5);
+}
+html[data-theme="sepia"] {
+  --background: #f4ead8;
+  --foreground: #3d3121;
+  --navbar: #3a2f22;
+  --card: #fbf4e6;
+  --card-foreground: #3d3121;
+  --primary: #9a5a33;
+  --primary-foreground: #fff;
+  --ring: #9a5a33;
+  --secondary: #eadcc2;
+  --secondary-foreground: #3d3121;
+  --muted: #e6d8bd;
+  --muted-foreground: #8a7a62;
+  --accent: #eadcc2;
+  --accent-foreground: #3d3121;
+  --border: #ddd0b6;
+  --input: rgba(140, 110, 60, .25);
+  --ring-soft: rgba(120, 90, 40, .25);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background .2s, color .2s;
+}
+a { color: var(--primary); text-decoration: none; }
+img { max-width: 100%; display: block; }
+svg.icon { display: inline-block; vertical-align: -.125em; fill: currentColor; }
+::selection { background: color-mix(in srgb, var(--primary) 25%, transparent); }
+.mono { font-family: var(--font-mono); }

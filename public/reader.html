@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reader — Fox-V</title>
+  <meta name="description" content="Focus-mode reader with font controls, reading themes, chapter navigation, and synced progress.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#212529">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Nunito+Sans:opsz,wght@6..12,200..1000&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="nav-header">
+    <div class="nav-bar">
+      <a class="brand" href="index.html">
+        <span class="brand-icon"><i data-icon="book-open" data-size="16"></i></span>
+        <span>FOX-<span class="wtr">V</span></span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html"><i data-icon="library" data-size="15"></i> <span>Library</span></a>
+        <a href="index.html#requestsCard"><i data-icon="send" data-size="15"></i> <span>Requests</span></a>
+        <a href="about.html"><i data-icon="info" data-size="15"></i> <span>About</span></a>
+      </div>
+      <button class="nav-icon-btn" id="themeToggle" title="Toggle dark mode" aria-label="Toggle dark mode">
+        <i data-icon="moon" data-size="16"></i>
+      </button>
+    </div>
+  </nav>
+
+  <div class="header-spacer"></div>
+
+  <main>
+    <div class="reader-wrap">
+      <aside class="card sidebar">
+        <a class="back-link" href="index.html"><i data-icon="arrow-left" data-size="13"></i> Back to Library</a>
+        <h2 id="sidebarTitle">Chapters</h2>
+        <ol id="chapterList"></ol>
+      </aside>
+
+      <article class="card chapter" id="chapterPane">
+        <div class="reader-controls">
+          <label for="fontSize"><i data-icon="type" data-size="14"></i> Font size</label>
+          <input type="range" id="fontSize" min="14" max="24" step="1" value="18">
+          <label for="themeSel"><i data-icon="palette" data-size="14"></i> Theme</label>
+          <select id="themeSel" aria-label="Reader theme">
+            <option value="">Auto (site theme)</option>
+            <option value="sepia">Sepia</option>
+            <option value="dark">Dark</option>
+            <option value="light">Light</option>
+          </select>
+          <label for="langSel"><i data-icon="globe" data-size="14"></i> Language</label>
+          <select id="langSel" aria-label="Translate language">
+            <option value="en">English (original)</option>
+            <option value="th">ไทย</option>
+            <option value="zh">中文</option>
+            <option value="ja">日本語</option>
+            <option value="ko">한국어</option>
+            <option value="es">Español</option>
+            <option value="fr">Français</option>
+            <option value="de">Deutsch</option>
+            <option value="ru">Русский</option>
+            <option value="id">Bahasa Indonesia</option>
+            <option value="vi">Tiếng Việt</option>
+            <option value="ar">العربية</option>
+            <option value="pt">Português</option>
+            <option value="hi">हिन्दी</option>
+          </select>
+          <button class="btn" id="markDone"><i data-icon="check" data-size="13"></i> Mark chapter done</button>
+        </div>
+        <div class="ctrl-group">
+          <label for="fontSel"><i data-icon="quote" data-size="14"></i> Font</label>
+          <select id="fontSel" aria-label="Reader font">
+            <option value="nunito">Nunito Sans</option>
+            <option value="georgia">Georgia</option>
+            <option value="palatino">Palatino</option>
+            <option value="sans">Sans-serif</option>
+            <option value="mono">Monospace</option>
+            <option value="comic">Comic</option>
+          </select>
+          <label for="quotesSel"><i data-icon="quote" data-size="14"></i> Quotes</label>
+          <select id="quotesSel" aria-label="Quote style">
+            <option value="smart">Smart “quotes”</option>
+            <option value="jp">「Brackets」</option>
+            <option value="kor">『Corner』</option>
+            <option value="cn">【Brackets】</option>
+            <option value="none">Plain "quotes"</option>
+          </select>
+          <label for="lineHeight"><i data-icon="expand" data-size="14"></i> Line height</label>
+          <input type="range" id="lineHeight" min="1.4" max="2.4" step="0.05" value="1.95">
+          <label for="bgColor"><i data-icon="brush" data-size="14"></i> Page color</label>
+          <input type="color" id="bgColor" value="#ffffff">
+          <label for="textColor"><i data-icon="type" data-size="14"></i> Text color</label>
+          <input type="color" id="textColor" value="#000000">
+          <button class="btn" id="retranslateBtn" title="Clear the cached translation of this chapter and translate again"><i data-icon="refresh" data-size="13"></i> Re-translate</button>
+        </div>
+        <p class="meta" id="readerMeta"></p>
+        <span class="tr-chip" id="trChip" hidden></span>
+        <h1 id="readerTitle"></h1>
+        <div class="chapter-text" id="readerText"></div>
+        <div class="pager">
+          <a class="btn" id="prevBtn" href="#"><i data-icon="arrow-left" data-size="15"></i> Previous</a>
+          <button class="btn primary" id="nextBtn"><i data-icon="arrow-right" data-size="15"></i> Next</button>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <footer>
+    <p>Fox-V — a WTR-Lab style novel reader. Icons from the built-in SVG icon library. Content is original placeholder fiction.</p>
+  </footer>
+
+  <script src="js/icons.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/translate.js"></script>
+  <script src="js/reader.js"></script>
+</body>
+</html>

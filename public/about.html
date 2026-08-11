@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — Fox-V</title>
+  <meta name="description" content="Everything you need to know about Fox-V, the WTR-Lab style novel reading website.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#212529">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Nunito+Sans:opsz,wght@6..12,200..1000&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="nav-header">
+    <div class="nav-bar">
+      <a class="brand" href="index.html">
+        <span class="brand-icon"><i data-icon="book-open" data-size="16"></i></span>
+        <span>FOX-<span class="wtr">V</span></span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html"><i data-icon="library" data-size="15"></i> <span>Library</span></a>
+        <a href="index.html#requestsCard"><i data-icon="send" data-size="15"></i> <span>Requests</span></a>
+        <a href="about.html" class="active"><i data-icon="info" data-size="15"></i> <span>About</span></a>
+      </div>
+      <button class="nav-icon-btn" id="themeToggle" title="Toggle dark mode" aria-label="Toggle dark mode">
+        <i data-icon="moon" data-size="16"></i>
+      </button>
+    </div>
+  </nav>
+
+  <div class="header-spacer"></div>
+
+  <main>
+    <div class="layout-body">
+      <div class="grid-main">
+        <div class="col-main">
+          <h1 class="page-title">About Fox-V</h1>
+          <p class="page-sub">Everything you need to know about this reading site.</p>
+
+          <div class="card">
+            <div class="card-body">
+              <h2>What is Fox-V?</h2>
+              <p>An offline-first novel reading website in the WTR-Lab style — community requests, reader customization, machine translation — but fully self-contained: separate pages, shared stylesheets, and plain JavaScript, no frameworks, no build step.</p>
+
+              <h2>Features — everything, WTR-Lab style</h2>
+              <ul>
+                <li><strong>Community requests</strong> — suggest novels (raw source URLs welcome); requests queue locally until the optional backend deploys.</li>
+                <li><strong>Following &amp; folders</strong> — follow novels with a heart, organize your library into custom folders.</li>
+                <li><strong>Filters &amp; sort</strong> — genre chips, following-only, continue-reading rows, sort by title/author/progress.</li>
+                <li><strong>Reader customization</strong> — font family, font size, line height, quote styles (smart “”, 「」, 『』, 【】), sepia/dark/light themes, custom page &amp; text colors.</li>
+                <li><strong>Machine translation</strong> — Google Translate in 14 languages, re-translate button, per-chapter cache.</li>
+                <li><strong>Progress</strong> — per chapter and per book, synced when the API is live (localStorage otherwise).</li>
+                <li><strong>PWA</strong> — installable, works offline.</li>
+              </ul>
+
+              <h2>Site structure</h2>
+              <ul>
+                <li><span class="code">index.html</span> — Library: new novels, continue-reading, genre filters, sort, folders, community requests, ranking.</li>
+                <li><span class="code">novel.html</span> — Novel detail: cover, stats, follow, full chapter list.</li>
+                <li><span class="code">reader.html</span> — Reader: chapter sidebar, full customization panel, translation.</li>
+                <li><span class="code">about.html</span> — this page.</li>
+                <li><span class="code">css/</span> — <span class="code">base.css</span> (theme variables) and <span class="code">style.css</span> (components).</li>
+                <li><span class="code">js/</span> — <span class="code">data.js</span> (novel content), <span class="code">icons.js</span> (SVG icon library), <span class="code">common.js</span> (theme, storage, PWA), <span class="code">db.js</span> (sync), <span class="code">library.js</span>, <span class="code">reader.js</span>, <span class="code">novel.js</span>.</li>
+                <li><span class="code">server.js</span> + <span class="code">package.json</span> — Node/Express API connected to PostgreSQL.</li>
+                <li><span class="code">manifest.webmanifest</span> + <span class="code">sw.js</span> — installable PWA with offline caching.</li>
+              </ul>
+
+              <h2>Design</h2>
+              <ul>
+                <li>WTR-Lab style: flat cards, Nunito Sans + JetBrains Mono typography, brand-orange accents, dark mode.</li>
+                <li>Self-contained SVG icon library (<span class="code">js/icons.js</span>) — no external CDN, works offline.</li>
+                <li>Responsive layout for phones, tablets, and desktops.</li>
+              </ul>
+
+              <h2>Translation — the unique angle</h2>
+              <p>Most novel readers are locked to one language. Fox-V's original angle: <strong>read any chapter in your language</strong>, instantly. Pick a language in the reader and the chapter is machine-translated via Google Translate — powered entirely on the free tier, no backend needed (the browser talks to Google's endpoint directly; the optional <span class="code">/api/translate</span> route remains available for when a server key is configured). Translations are cached per chapter and language, and the font size is kept.</p>
+              <ul>
+                <li>14 languages: ไทย, 中文, 日本語, 한국어, Español, Français, Deutsch, Русский, Bahasa Indonesia, Tiếng Việt, العربية, Português, हिन्दी + original English.</li>
+                <li>Choice is remembered between sessions; cached translations work offline after first read.</li>
+                <li>Bilingual fallback: if the translation service is unreachable, the original text stays.</li>
+              </ul>
+
+              <h2>Database</h2>
+              <p>Reading progress is stored in <span class="code">localStorage</span> out of the box. When the Express API (<span class="code">server.js</span>, wired to free-tier <strong>PostgreSQL</strong> on Render) is deployed, progress also syncs to the database so it follows you across devices — <span class="code">js/db.js</span> gracefully falls back to local storage whenever the API is unreachable. Each visitor gets an anonymous reader ID — no accounts required.</p>
+
+              <h2>Content</h2>
+              <p>Includes three sample novels with original placeholder chapters so the reader is fully demonstrable out of the box.</p>
+
+              <h2>Run it locally</h2>
+              <ul>
+                <li><span class="code">python3 -m http.server 8000</span> → <span class="code">http://localhost:8000</span> (frontend only)</li>
+                <li><span class="code">npm install && DATABASE_URL=... node server.js</span> (API)</li>
+              </ul>
+              <p>The frontend works without the API too — progress then stays in the local browser cache.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>Fox-V — a WTR-Lab style novel reader. Icons from the built-in SVG icon library. Content is original placeholder fiction.</p>
+  </footer>
+
+  <script src="js/icons.js"></script>
+  <script src="js/common.js"></script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+{
+  "name": "Fox-V",
+  "short_name": "Fox-V",
+  "description": "A WTR-Lab style novel reading library with synced progress and an offline-capable reader.",
+  "start_url": "index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f2f3f4",
+  "theme_color": "#212529",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

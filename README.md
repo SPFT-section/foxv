@@ -1,0 +1,34 @@
+# Fox-V
+
+WTR-Lab style novel reading site — flat cards, dark navbar, rail/ranking/recent updates, community requests, folders, follows, and Google Translate in 14 languages.
+
+## Deploy (Render Blueprint)
+
+`render.yaml` creates:
+
+- `foxv-site` — static frontend (`public/`)
+- `foxv-api` — Node/Express API (`server.js`)
+- `foxv-db` — free Postgres
+
+Frontend `js/db.js` and `js/translate.js` point at `https://foxv-api.onrender.com`; everything falls back to localStorage / direct browser translation when the API is unreachable.
+
+## Run locally
+
+```sh
+# frontend only
+python3 -m http.server 8000
+
+# API
+npm install
+DATABASE_URL=postgres://... node server.js
+```
+
+## Structure
+
+- `public/index.html` — Library: rail, continue reading, filters, requests, ranking
+- `public/novel.html` — novel detail + chapter list
+- `public/reader.html` — reader with customization + translation
+- `public/about.html` — about
+- `public/js/` — data, icons, common (theme/storage/PWA), db (sync), library, reader, novel, translate
+- `public/sw.js` — service worker (offline cache)
+- `server.js` — Express API: `/health`, `/api/progress/:uid`, `/api/translate`

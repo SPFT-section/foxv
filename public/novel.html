@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Novel — Fox-V</title>
+  <meta name="description" content="Novel details, chapters, and follow options.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#212529">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Nunito+Sans:opsz,wght@6..12,200..1000&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="nav-header">
+    <div class="nav-bar">
+      <a class="brand" href="index.html">
+        <span class="brand-icon"><i data-icon="book-open" data-size="16"></i></span>
+        <span>FOX-<span class="wtr">V</span></span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html" class="active"><i data-icon="library" data-size="15"></i> <span>Library</span></a>
+        <a href="index.html#requestsCard"><i data-icon="send" data-size="15"></i> <span>Requests</span></a>
+        <a href="about.html"><i data-icon="info" data-size="15"></i> <span>About</span></a>
+      </div>
+      <button class="nav-icon-btn" id="themeToggle" title="Toggle dark mode" aria-label="Toggle dark mode">
+        <i data-icon="moon" data-size="16"></i>
+      </button>
+    </div>
+  </nav>
+
+  <div class="header-spacer"></div>
+
+  <div class="layout-body">
+    <main id="novelMain" class="col-main"></main>
+  </div>
+
+  <footer>
+    <p>Fox-V — a WTR-Lab style novel reader. Icons from the built-in SVG icon library. Content is original placeholder fiction.</p>
+  </footer>
+
+  <script src="js/icons.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/novel.js"></script>
+</body>
+</html>

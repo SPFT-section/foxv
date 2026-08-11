@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fox-V — Read Light Novels in Machine Translation</title>
+  <meta name="description" content="Fox-V: WTR-Lab style novel reading — community requests, folders, following, ranking, PostgreSQL progress, Google Translate in 14 languages.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#212529">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Nunito+Sans:opsz,wght@6..12,200..1000&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="nav-header">
+    <div class="nav-bar">
+      <a class="brand" href="index.html">
+        <span class="brand-icon"><i data-icon="book-open" data-size="16"></i></span>
+        <span>FOX-<span class="wtr">V</span></span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html" class="active"><i data-icon="library" data-size="15"></i> <span>Library</span></a>
+        <a href="#requestsCard"><i data-icon="send" data-size="15"></i> <span>Requests</span></a>
+        <a href="about.html"><i data-icon="info" data-size="15"></i> <span>About</span></a>
+      </div>
+      <div class="nav-search">
+        <i data-icon="search" data-size="15"></i>
+        <input id="search" type="search" placeholder="Search..." aria-label="Search novels">
+      </div>
+      <button class="nav-icon-btn" id="themeToggle" title="Toggle dark mode" aria-label="Toggle dark mode">
+        <i data-icon="moon" data-size="16"></i>
+      </button>
+    </div>
+  </nav>
+
+  <div class="header-spacer"></div>
+
+  <div class="layout-body">
+    <div class="grid-main">
+      <div class="col-main">
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;">
+          <a class="btn" href="#newNovelsCard"><i data-icon="sparkles" data-size="14"></i> New Novels</a>
+          <a class="btn" href="#libraryCard"><i data-icon="library" data-size="14"></i> Your Library</a>
+          <a class="btn" href="#requestsCard"><i data-icon="send" data-size="14"></i> Community Requests</a>
+        </div>
+
+        <div class="card" id="newNovelsCard">
+          <div class="card-header">
+            <h2>New Novels</h2>
+            <div class="card-action"><span class="chip"><i data-icon="book-open" data-size="12"></i> <span id="novelCount">3</span> novels</span></div>
+          </div>
+          <div class="card-body">
+            <div class="rail" id="railNovels"></div>
+          </div>
+        </div>
+
+        <div class="card" id="continueCard" style="display:none;">
+          <div class="card-header">
+            <h2>Continue Reading</h2>
+            <div class="card-action"><span class="chip"><i data-icon="refresh" data-size="12"></i> pick up where you left off</span></div>
+          </div>
+          <div class="card-body">
+            <div class="row-list" id="continueList"></div>
+          </div>
+        </div>
+
+        <div class="card" id="libraryCard">
+          <div class="card-header">
+            <h2>Your Library</h2>
+            <div class="card-action">
+              <span class="chip-btn" id="followFilter"><i data-icon="heart" data-size="12"></i> Following</span>
+              <select id="sortSel" aria-label="Sort novels">
+                <option value="title">Title A–Z</option>
+                <option value="author">Author A–Z</option>
+                <option value="progress">Most read</option>
+              </select>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="toolbar" id="genreChips"></div>
+            <div class="toolbar" id="folderRow"></div>
+            <div class="grid" id="bookGrid"></div>
+            <div class="empty" id="noResults" style="display:none;">No novels match your filters.</div>
+          </div>
+        </div>
+
+        <div class="card" id="requestsCard">
+          <div class="card-header">
+            <h2>Community Requests</h2>
+            <div class="card-action"><span class="chip"><i data-icon="send" data-size="12"></i> <span id="requestCount">0</span> requests</span></div>
+          </div>
+          <div class="card-body">
+            <p class="section-sub">The community drives the content — suggest a novel (raw URL welcome). Stored locally until the optional backend deploys.</p>
+            <form class="request-form" id="requestForm">
+              <input type="text" name="title" placeholder="Novel title *" required aria-label="Novel title">
+              <input type="url" name="url" placeholder="Raw source URL (optional)" aria-label="Raw source URL">
+              <input type="text" name="note" placeholder="Note (optional)" aria-label="Note">
+              <button class="btn primary" type="submit"><i data-icon="plus" data-size="13"></i> Request</button>
+            </form>
+            <div class="request-grid" id="requestGrid"></div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="col-side">
+        <div class="card">
+          <div class="card-header"><h2>Novel Ranking</h2></div>
+          <div class="card-body">
+            <div class="rank-list" id="rankList"></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><h2>Quick Stats</h2></div>
+          <div class="card-body">
+            <div class="rank-list">
+              <div class="rank-item">
+                <span class="rank-num"><i data-icon="book-open" data-size="13"></i></span>
+                <div class="rank-info"><span class="t" id="statNovels">0 novels</span></div>
+              </div>
+              <div class="rank-item">
+                <span class="rank-num"><i data-icon="clock" data-size="13"></i></span>
+                <div class="rank-info"><span class="t" id="statChapters">0 chapters</span></div>
+              </div>
+              <div class="rank-item">
+                <span class="rank-num"><i data-icon="globe" data-size="13"></i></span>
+                <div class="rank-info"><span class="t">14 languages</span></div>
+              </div>
+              <div class="rank-item">
+                <span class="rank-num"><i data-icon="smartphone" data-size="13"></i></span>
+                <div class="rank-info"><span class="t">Installable PWA</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><h2>About Fox-V</h2></div>
+          <div class="card-body">
+            <p class="section-sub" style="margin-bottom:8px;">A community-driven machine-translation novel reader — WTR-Lab style. Reader customization, folders, follow lists, Google Translate in 14 languages.</p>
+            <a class="btn" href="about.html"><i data-icon="info" data-size="13"></i> Read more</a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <footer>
+    <p>Fox-V — a WTR-Lab style novel reader. Icons from the built-in SVG icon library. Content is original placeholder fiction.</p>
+  </footer>
+
+  <script src="js/icons.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/library.js"></script>
+</body>
+</html>
