@@ -3,23 +3,25 @@ databases:
     plan: free
 
 services:
-  - type: web
-    name: foxv-api
-    env: node
-    plan: free
-    rootDir: .
-    buildCommand: npm install
-    startCommand: node server.js
-    healthCheckPath: /health
-    envVars:
-      - key: DATABASE_URL
-        fromDatabase:
-          name: foxv-db
-          property: connectionString
+  # Web service (API) needs payment info on the Render account.
+  # Uncomment once a card is added at https://dashboard.render.com/billing
+  # - type: web
+  #   name: foxv-api
+  #   env: node
+  #   plan: free
+  #   rootDir: .
+  #   buildCommand: npm install
+  #   startCommand: node server.js
+  #   healthCheckPath: /health
+  #   envVars:
+  #     - key: DATABASE_URL
+  #       fromDatabase:
+  #         name: foxv-db
+  #         property: connectionString
 
-  - type: static
+  - type: web
     name: foxv-site
-    plan: free
+    runtime: static
     rootDir: public
     buildCommand: ""
     staticPublishPath: .
