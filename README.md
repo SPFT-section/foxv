@@ -4,13 +4,12 @@ WTR-Lab style novel reading site — flat cards, dark navbar, rail/ranking/recen
 
 ## Deploy (Render Blueprint)
 
-`render.yaml` creates:
+`render.yaml` defines one full-stack web service:
 
-- `foxv-site` — static frontend (`public/`)
-- `foxv-api` — Node/Express API (`server.js`)
-- `foxv-db` — free Postgres
+- `foxv` — Node/Express web service (free plan) serving both the frontend (`public/`) and the API (`server.js`)
+- `foxv-db` — free Postgres, wired via `DATABASE_URL`
 
-Frontend `js/db.js` and `js/translate.js` point at `https://foxv-api.onrender.com`; everything falls back to localStorage / direct browser translation when the API is unreachable.
+The frontend calls `/api/...` on the same origin and falls back to localStorage / direct browser translation when the API is unreachable.
 
 ## Run locally
 

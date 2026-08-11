@@ -1,7 +1,7 @@
 "use strict";
 
 (function () {
-  const API_BASE = "https://foxv-api.onrender.com/api/translate";
+  const API_BASE = "/api/translate";
   const GTX = "https://translate.googleapis.com/translate_a/single";
   const LANG_KEY = "foxv.lang";
   const CACHE_PREFIX = "foxv.tr.";

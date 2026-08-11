@@ -1,7 +1,7 @@
 "use strict";
 
 (function () {
-  const API_BASE = "https://foxv-api.onrender.com";
+  const API_BASE = "";
   const UID_KEY = "foxv.uid";
 
   function getUid() {
